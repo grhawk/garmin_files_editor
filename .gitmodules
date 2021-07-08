@@ -1,0 +1,7 @@
+[submodule "libs/CLI11"]
+	path = libs/CLI11
+	url = git@github.com:CLIUtils/CLI11.git
+	branch = master
+[submodule "libs/spdlog"]
+	path = libs/spdlog
+	url = git@github.com:gabime/spdlog.git

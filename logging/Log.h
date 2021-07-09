@@ -24,7 +24,7 @@ namespace logging {
 #define _LOG_TRACE(...) logging::Log::getEngineLogger()->trace(__VA_ARGS__)
 #define _LOG_INFO(...) logging::Log::getEngineLogger()->info(__VA_ARGS__)
 #define _LOG_WARN(...) logging::Log::getEngineLogger()->warning(__VA_ARGS__)
-#define _LOG_ERRROR(...) logging::Log::getEngineLogger()->error(__VA_ARGS__)
+#define _LOG_ERROR(...) logging::Log::getEngineLogger()->error(__VA_ARGS__)
 #define _LOG_CRITICAL(...) logging::Log::getEngineLogger()->critical(__VA_ARGS__)
 
 #endif //LOG_H

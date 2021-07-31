@@ -20,21 +20,21 @@ class PositionF : public ::testing::Test {
     pugi::xml_parse_result parse_result = doc.load_buffer(position_node_xml.c_str(), position_node_xml.size());
     ASSERT_TRUE(parse_result);
 
-    position_node = doc.root().child("Position");
-    sus = gar_edit::Position(&position_node);
+    node = doc.root().child("Position");
+    sus = gar_edit::Position(node);
   }
 
   void TearDown() override {}
 
   gar_edit::Position sus;
-  pugi::xml_node position_node; // if this is inside the SetUp it gets destroyed at the end of the setup.
+  pugi::xml_node node; // if this is inside the SetUp it gets destroyed at the end of the setup.
   std::string latitude = "46.643460458144546";
   std::string longitude = "7.241974733769894";
 };
 
 TEST_F(PositionF, ShouldReturnLatitude)
 {
-  ASSERT_LE((sus.latitude() - std::strtold(latitude.c_str(), nullptr)), 1E-8);
+  ASSERT_EQ(sus.latitude(), std::strtold(latitude.c_str(), nullptr));
 }
 
 TEST_F(PositionF, ShouldReturnLongitude)
@@ -51,8 +51,8 @@ TEST_F(PositionF, CheckStringOutput)
 
 TEST_F(PositionF, CheckXMLNode)
 {
-  ASSERT_STREQ(position_node.child_value("LatitudeDegrees"), latitude.c_str());
-  ASSERT_STREQ(position_node.child_value("LongitudeDegrees"), longitude.c_str());
+  ASSERT_STREQ(node.child_value("LatitudeDegrees"), latitude.c_str());
+  ASSERT_STREQ(node.child_value("LongitudeDegrees"), longitude.c_str());
 }
 
 #pragma clang diagnostic pop

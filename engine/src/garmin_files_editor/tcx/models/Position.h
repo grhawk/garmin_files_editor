@@ -14,18 +14,18 @@ typedef long double coordinate;
 
 class Position {
  private:
-  pugi::xml_node* node_;
+  pugi::xml_node node_;
 
  public:
   explicit Position() : node_{nullptr} {};
-  explicit Position(pugi::xml_node* node) : node_{node} {};
+  explicit Position(pugi::xml_node node) : node_{node} {};
   Position& operator=(Position copy) {
     std::swap(node_, copy.node_);
     return *this;
   }
   ~Position() = default;
-  [[nodiscard]] coordinate latitude() const { return std::strtold(node_->child_value("LatitudeDegrees"), nullptr); }
-  [[nodiscard]] coordinate longitude() const { return std::strtold(node_->child_value("LongitudeDegrees"), nullptr); }
+  [[nodiscard]] coordinate latitude() const { return std::strtold(node_.child_value("LatitudeDegrees"), nullptr); }
+  [[nodiscard]] coordinate longitude() const { return std::strtold(node_.child_value("LongitudeDegrees"), nullptr); }
   [[nodiscard]] std::string str() const;
 };
 

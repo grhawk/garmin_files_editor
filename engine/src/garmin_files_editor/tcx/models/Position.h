@@ -4,24 +4,29 @@
 
 #pragma once //GARMIN_FILES_EDITOR_POSITION_H
 
+#include <pugixml.hpp>
+#include <iostream>
 #include <sstream>
-
-typedef long double coordinate;
+#include <cstdlib>
 
 namespace gar_edit {
+typedef long double coordinate;
 
 class Position {
  private:
-  coordinate latitude_;
-  coordinate longitude_;
+  pugi::xml_node* node_;
 
  public:
-  Position(coordinate latitude, coordinate longitude) : latitude_{latitude}, longitude_{longitude} {};
+  explicit Position() : node_{nullptr} {};
+  explicit Position(pugi::xml_node* node) : node_{node} {};
+  Position& operator=(Position copy) {
+    std::swap(node_, copy.node_);
+    return *this;
+  }
   ~Position() = default;
+  [[nodiscard]] coordinate latitude() const { return std::strtold(node_->child_value("LatitudeDegrees"), nullptr); }
+  [[nodiscard]] coordinate longitude() const { return std::strtold(node_->child_value("LongitudeDegrees"), nullptr); }
   [[nodiscard]] std::string str() const;
-  [[nodiscard]] coordinate latitude() const { return latitude_; }
-  [[nodiscard]] coordinate longitude() const {return longitude_; }
-
 };
 
 }

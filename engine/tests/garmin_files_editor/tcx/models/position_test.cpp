@@ -5,6 +5,8 @@
 //
 
 #include<gtest/gtest.h>
+#include<string>
+
 #include "garmin_files_editor/tcx/models/Position.h"
 
 class PositionF : public ::testing::Test {
@@ -34,12 +36,12 @@ class PositionF : public ::testing::Test {
 
 TEST_F(PositionF, ShouldReturnLatitude)
 {
-  ASSERT_EQ(sus.latitude(), std::strtold(latitude.c_str(), nullptr));
+  ASSERT_EQ(sus.latitude(), std::stold(latitude));
 }
 
 TEST_F(PositionF, ShouldReturnLongitude)
 {
-  ASSERT_EQ(sus.longitude(), std::strtold(longitude.c_str(), nullptr));
+  ASSERT_EQ(sus.longitude(), std::stold(longitude));
 }
 
 TEST_F(PositionF, CheckStringOutput)

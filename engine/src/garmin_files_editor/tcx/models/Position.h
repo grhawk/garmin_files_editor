@@ -5,9 +5,9 @@
 #pragma once //GARMIN_FILES_EDITOR_POSITION_H
 
 #include <pugixml.hpp>
-#include <iostream>
+#include <string>
+#include <iomanip>
 #include <sstream>
-#include <cstdlib>
 
 namespace gar_edit {
 typedef long double coordinate;
@@ -24,8 +24,8 @@ class Position {
     return *this;
   }
   ~Position() = default;
-  [[nodiscard]] coordinate latitude() const { return std::strtold(node_.child_value("LatitudeDegrees"), nullptr); }
-  [[nodiscard]] coordinate longitude() const { return std::strtold(node_.child_value("LongitudeDegrees"), nullptr); }
+  [[nodiscard]] coordinate latitude() const { return std::stold(node_.child_value("LatitudeDegrees")); }
+  [[nodiscard]] coordinate longitude() const { return std::stold(node_.child_value("LongitudeDegrees")); }
   [[nodiscard]] std::string str() const;
 };
 

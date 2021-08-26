@@ -19,5 +19,6 @@ int main(int argc, char* argv[])
     auto* sandbox = new Sandbox();
     std::cout << sandbox->message() << std::endl;
     std::cout << addToMessage << std::endl;
+    sandbox->test();
     delete sandbox;
 }

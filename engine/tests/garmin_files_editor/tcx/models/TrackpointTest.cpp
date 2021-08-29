@@ -54,7 +54,6 @@ class TrackpointF : public ::testing::Test {
     ASSERT_TRUE(parse_result);
 
     node = doc.root().child("Trackpoint");
-    sus = gar_edit::Trackpoint(node);
   }
 
   static std::string generateRandomLongDoubleWithIn(long double lower_bound, long double upper_bound) {
@@ -70,7 +69,6 @@ class TrackpointF : public ::testing::Test {
 
   void TearDown() override {}
 
-  gar_edit::Trackpoint sus;
   pugi::xml_node node; // if this is inside the SetUp it gets destroyed at the end of the setup.
   std::string latitude_ = generateRandomLongDoubleWithIn(0.0l, 90.0l);
   std::string longitude_ = generateRandomLongDoubleWithIn(0.0l, 180.0l);
@@ -83,34 +81,39 @@ class TrackpointF : public ::testing::Test {
 
 TEST_F(TrackpointF, CheckPositionValue)
 {
+  auto sus = gar_edit::Trackpoint(node);
   ASSERT_EQ(sus.position()->latitude(),  std::stold(latitude_));
   ASSERT_EQ(sus.position()->longitude(), std::stold(longitude_));
 }
 
 TEST_F(TrackpointF, ShouldRetureHeartRate)
 {
+  auto sus = gar_edit::Trackpoint(node);
   ASSERT_EQ(sus.hbpm(), std::stoi(hbpm_));
 }
 
 TEST_F(TrackpointF, ShouldReturnSpeed)
 {
+  auto sus = gar_edit::Trackpoint(node);
   ASSERT_EQ(sus.speed(), std::stold(speed_));
 }
 
 TEST_F(TrackpointF, ShouldReturnDistance)
 {
+  auto sus = gar_edit::Trackpoint(node);
   ASSERT_EQ(sus.distance(), std::stold(distance_));
 }
 
 TEST_F(TrackpointF, shouldReturnTime)
 {
+  auto sus = gar_edit::Trackpoint(node);
   ASSERT_EQ(sus.time(), 1623491381L);
-  time_ = "pippappero";
 }
 
 TEST_F(TrackpointF, shouldThrowException_TimeIsInWrongFormat)
 {
   node.child("Time").text().set("apppero");
+  auto sus = gar_edit::Trackpoint(node);
   ASSERT_THROW(sus.time(), std::runtime_error);
 }
 

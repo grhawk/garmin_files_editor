@@ -44,6 +44,13 @@ TEST_F(PositionF, ShouldReturnLongitude)
   ASSERT_EQ(sus.longitude(), std::stold(longitude));
 }
 
+TEST_F(PositionF, ShouldReturnBothLongAndLat)
+{
+  auto sus = gar_edit::Position(node);
+  ASSERT_EQ(sus.latitude(), std::stold(latitude));
+  ASSERT_EQ(sus.longitude(), std::stold(longitude));
+}
+
 TEST_F(PositionF, CheckStringOutput)
 {
   auto sus = gar_edit::Position(node);

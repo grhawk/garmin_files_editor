@@ -6,6 +6,7 @@
 
 #include <pugixml.hpp>
 #include <string>
+#include <iostream>
 //#include <iomanip>
 //#include <ctime>
 //#include <sstream>
@@ -26,18 +27,13 @@ class Trackpoint {
   Position* position_;
 
  public:
-  explicit Trackpoint() : node_{nullptr}, position_{nullptr} {};
+  pugi::xml_node position_node_;
   explicit Trackpoint(pugi::xml_node node) : node_{node}, position_{nullptr} {
+    position_node_ = node_.child("Position");
     position_ = new Position(node_.child("Position"));
   }
   ~Trackpoint() = default; //{ delete position_; }
-  Trackpoint(const Trackpoint &) = default;
-  Trackpoint& operator=(Trackpoint copy) {
-    std::swap(node_, copy.node_);
-    std::swap(position_, copy.position_);
-    return *this;
-  }
-
+  Trackpoint(const Trackpoint &){std::cout << "USING FORBIDDEN FUNCTION" << std::endl;};
   [[nodiscard]] const Position* position() const { return position_; }
   [[nodiscard]] Altitude altitude() const;
   [[nodiscard]] Distance distance() const;

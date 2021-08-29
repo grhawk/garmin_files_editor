@@ -8,24 +8,20 @@
 #include <string>
 #include <iomanip>
 #include <sstream>
+#include <iostream>
 
 namespace gar_edit {
 typedef long double coordinate;
 
 class Position {
  private:
-  const pugi::xml_node* const node_;
+  const pugi::xml_node node_;
 
  public:
-  explicit Position() : node_{nullptr} {};
-  explicit Position(const pugi::xml_node& node) : node_{&node} {};
-//  Position& operator=(Position copy) {
-//    std::swap(node_, copy.node_);
-//    return *this;
-//  }
+  explicit Position(const pugi::xml_node node) : node_{node} {};
   ~Position() = default;
-  [[nodiscard]] coordinate latitude() const { return std::stold(node_->child_value("LatitudeDegrees")); }
-  [[nodiscard]] coordinate longitude() const { return std::stold(node_->child_value("LongitudeDegrees")); }
+  [[nodiscard]] coordinate latitude() const { return std::stold(node_.child_value("LatitudeDegrees"));}
+  [[nodiscard]] coordinate longitude() const { return std::stold(node_.child_value("LongitudeDegrees")); }
   [[nodiscard]] std::string str() const;
 };
 

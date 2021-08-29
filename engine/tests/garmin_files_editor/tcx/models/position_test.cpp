@@ -18,8 +18,7 @@ class PositionF : public ::testing::Test {
     position_node_xml.append(longitude);
     position_node_xml.append("</LongitudeDegrees></Position>");
 
-    pugi::xml_document doc;
-    pugi::xml_parse_result parse_result = doc.load_buffer(position_node_xml.c_str(), position_node_xml.size());
+    parse_result = doc.load_buffer(position_node_xml.c_str(), position_node_xml.size());
     ASSERT_TRUE(parse_result);
 
     node = doc.root().child("Position");
@@ -27,6 +26,8 @@ class PositionF : public ::testing::Test {
 
   void TearDown() override {}
 
+  pugi::xml_document doc;
+  pugi::xml_parse_result parse_result;
   pugi::xml_node node; // if this is inside the SetUp it gets destroyed at the end of the setup.
   std::string latitude = "46.643460458144546";
   std::string longitude = "7.241974733769894";

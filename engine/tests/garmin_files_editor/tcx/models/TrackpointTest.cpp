@@ -48,8 +48,7 @@ class TrackpointF : public ::testing::Test {
                       "            </DistanceMeters>"
                       "          </Trackpoint>";
 
-    pugi::xml_document doc;
-    pugi::xml_parse_result parse_result = doc.load_buffer(position_node_xml.str().c_str(),
+    parse_result = doc.load_buffer(position_node_xml.str().c_str(),
                                                           position_node_xml.str().size());
     ASSERT_TRUE(parse_result);
 
@@ -69,6 +68,8 @@ class TrackpointF : public ::testing::Test {
 
   void TearDown() override {}
 
+  pugi::xml_document doc;
+  pugi::xml_parse_result parse_result;
   pugi::xml_node node; // if this is inside the SetUp it gets destroyed at the end of the setup.
   std::string latitude_ = generateRandomLongDoubleWithIn(0.0l, 90.0l);
   std::string longitude_ = generateRandomLongDoubleWithIn(0.0l, 180.0l);

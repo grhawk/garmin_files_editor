@@ -7,7 +7,7 @@
 std::string gar_edit::Position::str() const
 {
   std::stringstream ss;
-  ss <<  std::setprecision(17)
+  ss <<  std::setprecision(21)
      << "<Position>{lat: "
      << latitude()
      << " - long: "

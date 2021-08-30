@@ -10,6 +10,7 @@ jobs:
       - run: apt-get update && apt-get install -y cmake git build-essential
       - checkout
       - run: ls; ls ~/project
+      - run: cd ~/project && git submodule init && git submodule update
       - run: cd ~/project && mkdir build
       - run: cd ~/project/build && cmake ..
       - run: cd ~/project/build && make

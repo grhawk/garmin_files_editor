@@ -11,7 +11,8 @@ typedef long double Distance;
 typedef unsigned int Hbpm;
 typedef long double Speed;
 typedef std::time_t Time;
-typedef long double coordinate;
+typedef long double Coordinate;
+inline const char* timeFormat = "%FT%T";
 }
 
 #endif //GARMIN_FILES_EDITOR_ENGINE_SRC_GARMIN_FILES_EDITOR_TCX_MODELS_TYPES_H_

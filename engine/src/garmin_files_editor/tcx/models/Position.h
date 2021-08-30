@@ -21,8 +21,8 @@ class Position {
  public:
   explicit Position(const pugi::xml_node node) : node_{node} {};
   ~Position() = default;
-  [[nodiscard]] coordinate latitude() const { return std::stold(node_.child_value("LatitudeDegrees"));}
-  [[nodiscard]] coordinate longitude() const { return std::stold(node_.child_value("LongitudeDegrees")); }
+  [[nodiscard]] Coordinate latitude() const { return std::stold(node_.child_value("LatitudeDegrees"));}
+  [[nodiscard]] Coordinate longitude() const { return std::stold(node_.child_value("LongitudeDegrees")); }
   [[nodiscard]] std::string str() const;
 };
 

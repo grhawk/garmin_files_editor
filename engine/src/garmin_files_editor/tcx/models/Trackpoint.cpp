@@ -30,7 +30,9 @@ tm gar_edit::Trackpoint::parseTimeString(const std::string &time_string) {
   std::stringstream ss;
   ss << time_string;
 
-  ss >> std::get_time(&tm, "%FT%T");
+  ss >> std::get_time(&tm, timeFormat);
+
+  tm.tm_hour += 1; // Adjust for the timezone.
 
   if (ss.fail()) {
     throw std::runtime_error("Could not convert time: " + ss.str());

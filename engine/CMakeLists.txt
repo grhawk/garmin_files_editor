@@ -13,5 +13,5 @@ add_library(${PROJECT_NAME}
         src/garmin_files_editor/tcx/models/Position.cpp
         src/garmin_files_editor/tcx/models/Position.h
         src/garmin_files_editor/tcx/models/TcxParser.cpp
-        src/garmin_files_editor/tcx/models/TcxParser.h src/garmin_files_editor/tcx/models/Trackpoint.cpp src/garmin_files_editor/tcx/models/Trackpoint.h)
+        src/garmin_files_editor/tcx/models/TcxParser.h src/garmin_files_editor/tcx/models/Trackpoint.cpp src/garmin_files_editor/tcx/models/Trackpoint.h src/garmin_files_editor/tcx/models/types.h)
 target_link_libraries(${PROJECT_NAME} PUBLIC Logging pugixml::pugixml Boost::date_time)

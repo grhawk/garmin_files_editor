@@ -9,6 +9,7 @@
 #include <string>
 #include <iomanip>
 #include <sstream>
+#include <chrono>
 #include "garmin_files_editor/tcx/models/types.h"
 
 

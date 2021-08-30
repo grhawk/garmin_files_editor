@@ -7,19 +7,11 @@
 #include <pugixml.hpp>
 #include <string>
 #include <iostream>
-//#include <iomanip>
-//#include <ctime>
-//#include <sstream>
 
 #include "Position.h"
+#include "types.h"
 
 namespace gar_edit {
-
-typedef long double Altitude;
-typedef long double Distance;
-typedef unsigned int Hbpm;
-typedef long double Speed;
-typedef std::time_t Time;
 
 class Trackpoint {
  private:

@@ -10,8 +10,9 @@
 #include <sstream>
 #include <iostream>
 
+#include "types.h"
+
 namespace gar_edit {
-typedef long double coordinate;
 
 class Position {
  private:

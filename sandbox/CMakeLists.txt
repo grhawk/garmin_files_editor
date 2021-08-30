@@ -2,7 +2,7 @@ set(PROJECT ${CPACK_PROJECT_NAME}-sandbox)
 
 project(${PROJECT} VERSION 0.1.0)
 
-add_subdirectory(tests)
+#add_subdirectory(tests)
 
 include_directories(${CMAKE_SOURCE_DIR}/engine/src)
 add_executable(${PROJECT_NAME} src/EntryPoint.cpp src/Sandbox.cpp src/Sandbox.h)

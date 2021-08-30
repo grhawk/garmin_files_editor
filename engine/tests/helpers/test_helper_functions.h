@@ -33,11 +33,20 @@ std::string timeToString(std::time_t epoch) {
   return ss.str();
 }
 
-struct trackpointData {
-  trackpointData() : time{0}, latitude{0}, longitude{0}, altitude{0}, distance{0}, hbpm{0}, speed{0}, trackpoint{0}{}
-  long time;
+struct positionData {
+  positionData() : latitude{0}, longitude{0}{}
+  positionData(gar_edit::Coordinate latitude, gar_edit::Coordinate longitude) : latitude{latitude},
+                                                                                longitude{longitude}{}
   gar_edit::Coordinate latitude;
   gar_edit::Coordinate longitude;
+
+  std::string position;
+};
+
+struct trackpointData {
+  trackpointData() : time{0}, position_data{positionData()}, altitude{0}, distance{0}, hbpm{0}, speed{0}, trackpoint{0}{}
+  long time;
+  positionData position_data;
   gar_edit::Altitude altitude;
   gar_edit::Distance distance;
   gar_edit::Hbpm hbpm;
@@ -46,23 +55,32 @@ struct trackpointData {
   std::string trackpoint;
 };
 
-void generateTrackpoint(trackpointData& tcd) {
+void generatePosition(positionData& pd){
   std::stringstream position_node_xml;
   position_node_xml <<
                     std::setprecision(21)
                     <<
+                    "            <Position>\n"
+                    "              <LatitudeDegrees>"
+                    << pd.latitude <<
+                    "              </LatitudeDegrees>\n"
+                    "              <LongitudeDegrees>"
+                    << pd.longitude <<
+                    "              </LongitudeDegrees>\n"
+                    "            </Position>\n";
+  pd.position = position_node_xml.str();
+}
+
+void generateTrackpoint(trackpointData& tcd) {
+  generatePosition(tcd.position_data);
+
+  std::stringstream position_node_xml;
+  position_node_xml << std::setprecision(21) <<
                     "          <Trackpoint>\n"
                     "            <Time>"
                     << timeToString(tcd.time) <<
                     "            </Time>\n"
-                    "            <Position>\n"
-                    "              <LatitudeDegrees>"
-                    << tcd.latitude <<
-                    "              </LatitudeDegrees>\n"
-                    "              <LongitudeDegrees>"
-                    << tcd.longitude <<
-                    "              </LongitudeDegrees>\n"
-                    "            </Position>\n"
+                    << tcd.position_data.position <<
                     "            <HeartRateBpm>\n"
                     "              <Value>"
                     << tcd.hbpm <<
@@ -87,8 +105,8 @@ void generateTrackpoint(trackpointData& tcd) {
 
 [[nodiscard]] trackpointData generateRandomTrackpoint() {
   trackpointData tcd;
-  tcd.latitude = generateRandomLongDoubleWithIn(0.0l, 90.0l);
-  tcd.longitude = generateRandomLongDoubleWithIn(0.0l, 180.0l);
+  tcd.position_data = positionData(generateRandomLongDoubleWithIn(0.0l, 90.0l),
+                                   generateRandomLongDoubleWithIn(0.0l, 180.0l));
   tcd.hbpm = generateRandomIntegerWithIn(20, 250);
   tcd.speed = generateRandomLongDoubleWithIn(0.0l, 180.0l);
   tcd.altitude = generateRandomLongDoubleWithIn(0.0l, 12000.0l);

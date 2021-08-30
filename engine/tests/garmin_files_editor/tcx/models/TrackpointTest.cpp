@@ -40,20 +40,13 @@ class TrackpointF : public ::testing::Test {
   pugi::xml_parse_result parse_result;
   gar_edit::test_helpers::trackpointData tpd_ = gar_edit::test_helpers::generateRandomTrackpoint();
   pugi::xml_node node; // if this is inside the SetUp it gets destroyed at the end of the setup.
-//  std::string latitude_ = generateRandomLongDoubleWithIn(0.0l, 90.0l);
-//  std::string longitude_ = generateRandomLongDoubleWithIn(0.0l, 180.0l);
-//  std::string hbpm_ = generateRandomIntegerWithIn(20, 250);
-//  std::string speed_ = generateRandomLongDoubleWithIn(0.0l, 180.0l);
-//  std::string altimeter_ = generateRandomLongDoubleWithIn(0.0l, 12000.0l);
-//  std::string distance_ = generateRandomLongDoubleWithIn(0.0l, 180.0l);
-//  std::string time_ = "2021-06-12T10:49:41.000Z";
 };
 
 TEST_F(TrackpointF, CheckPositionValue)
 {
   auto sus = gar_edit::Trackpoint(node);
-  ASSERT_EQ(sus.position()->latitude(), tpd_.latitude);
-  ASSERT_EQ(sus.position()->longitude(), tpd_.longitude);
+  ASSERT_EQ(sus.position()->latitude(), tpd_.position_data.latitude);
+  ASSERT_EQ(sus.position()->longitude(), tpd_.position_data.longitude);
 }
 
 TEST_F(TrackpointF, ShouldRetureHeartRate)

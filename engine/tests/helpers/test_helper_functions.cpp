@@ -23,8 +23,6 @@ std::string gar_edit::test_helpers::timeToString(std::time_t epoch) {
   std::stringstream ss;
   std::time_t tt = epoch;
 
-  putenv("TZ=UTC");
-
   std::tm* ptm = nullptr;
   ptm = std::localtime(&tt);
   ptm->tm_isdst = -1;
@@ -40,12 +38,8 @@ void gar_edit::test_helpers::generatePosition(gar_edit::test_helpers::positionDa
                     std::setprecision(21)
                     <<
                     "            <Position>\n"
-                    "              <LatitudeDegrees>"
-                    << pd.latitude <<
-                    "              </LatitudeDegrees>\n"
-                    "              <LongitudeDegrees>"
-                    << pd.longitude <<
-                    "              </LongitudeDegrees>\n"
+                    "              <LatitudeDegrees>" << pd.latitude << "</LatitudeDegrees>\n"
+                    "              <LongitudeDegrees>" << pd.longitude << "</LongitudeDegrees>\n"
                     "            </Position>\n";
   pd.position = position_node_xml.str();
 }
@@ -54,9 +48,7 @@ void gar_edit::test_helpers::generateTrackpoint(gar_edit::test_helpers::trackpoi
   std::stringstream position_node_xml;
   position_node_xml << std::setprecision(21) <<
                     "          <Trackpoint>\n"
-                    "            <Time>"
-                    << timeToString(tcd.time) <<
-                    "            </Time>\n"
+                    "            <Time>" << timeToString(tcd.time) << "</Time>\n"
                     << tcd.position_data.position <<
                     "            <HeartRateBpm>\n"
                     "              <Value>"

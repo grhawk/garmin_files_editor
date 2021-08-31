@@ -69,6 +69,7 @@ TEST_F(TrackpointF, ShouldReturnDistance)
 
 TEST_F(TrackpointF, shouldReturnTime)
 {
+  std::cout << "XML:" << std::endl << tpd_.trackpoint << std::endl;
   auto sus = gar_edit::Trackpoint(node);
   std::cout << "DIFFERENCE: " << sus.time() - tpd_.time << std::endl;
   ASSERT_EQ(sus.time(), tpd_.time);

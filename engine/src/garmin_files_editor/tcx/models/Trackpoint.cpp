@@ -28,14 +28,16 @@ tm gar_edit::Trackpoint::parseTimeString(const std::string &time_string) {
   std::tm tm = {};
   tm.tm_isdst = -1;
 
-  putenv("TZ=UTC");
+  std::cout << "Incoming: `" << time_string << "`" << std::endl;
 
-  std::stringstream ss;
-  ss << time_string;
-  ss >> std::get_time(&tm, timeFormat);
+//  std::stringstream ss;
+//  ss << time_string;
+//  ss >> std::get_time(&tm, timeFormat);
 
-  if (ss.fail()) {
-    throw std::runtime_error("Could not convert time: " + ss.str());
+if (strptime(time_string.c_str(), timeFormat, &tm) == nullptr) {
+
+//  if (ss.fail()) {
+    throw std::runtime_error("Could not convert time: `" + time_string + "`.");
   }
   return tm;
 }

@@ -16,13 +16,13 @@ namespace gar_edit {
 class Trackpoint {
  private:
   const pugi::xml_node node_;
-  const Position* const position_;
+  const Position *const position_;
 
  public:
   explicit Trackpoint(pugi::xml_node node) : node_{node},
                                              position_{new Position(node_.child("Position"))} {}
   ~Trackpoint() { delete position_; }
-  [[nodiscard]] const Position* position() const { return position_; }
+  [[nodiscard]] const Position *position() const { return position_; }
   [[nodiscard]] Altitude altitude() const;
   [[nodiscard]] Distance distance() const;
   [[nodiscard]] Hbpm hbpm() const;
@@ -30,7 +30,7 @@ class Trackpoint {
   [[nodiscard]] Time time() const;
 
  private:
-  [[nodiscard]] static tm parseTimeString(const std::string &time_string) ;
+  [[nodiscard]] static tm parseTimeString(const std::string &time_string);
 };
 
 }

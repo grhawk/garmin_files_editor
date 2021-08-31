@@ -28,6 +28,8 @@ tm gar_edit::Trackpoint::parseTimeString(const std::string &time_string) {
   std::tm tm = {};
   tm.tm_isdst = -1;
 
+  putenv("TZ=UTC");
+
   std::stringstream ss;
   ss << time_string;
   ss >> std::get_time(&tm, timeFormat);

@@ -4,6 +4,7 @@
 
 #include "test_helper_functions.h"
 #include <iostream>
+#include <cstdlib>
 
 long double gar_edit::test_helpers::generateRandomLongDoubleWithIn(const long double &lower_bound,
                                                                    const long double &upper_bound) {
@@ -21,6 +22,8 @@ std::string gar_edit::test_helpers::timeToString(std::time_t epoch) {
   // "2021-06-12T10:49:41.000Z";
   std::stringstream ss;
   std::time_t tt = epoch;
+
+  putenv("TZ=UTC");
 
   std::tm* ptm = nullptr;
   ptm = std::localtime(&tt);

@@ -3,7 +3,7 @@
 //
 
 #include "test_helper_functions.h"
-
+#include <iostream>
 
 long double gar_edit::test_helpers::generateRandomLongDoubleWithIn(const long double &lower_bound,
                                                                    const long double &upper_bound) {
@@ -22,8 +22,12 @@ std::string gar_edit::test_helpers::timeToString(std::time_t epoch) {
   std::stringstream ss;
   std::time_t tt = epoch;
 
-  struct std::tm* ptm = std::gmtime(&tt);
+  std::tm* ptm = nullptr;
+  ptm = std::localtime(&tt);
+  ptm->tm_isdst = -1;
+
   ss << std::put_time(ptm, timeFormat);
+  std::cout << ss.str() << std::endl;
   return ss.str();
 }
 
@@ -91,6 +95,10 @@ gar_edit::test_helpers::trackpointData gar_edit::test_helpers::generateRandomTra
   tcd.altitude = generateRandomLongDoubleWithIn(0.0l, 12000.0l);
   tcd.distance = generateRandomLongDoubleWithIn(0.0l, 180.0l);
   tcd.time = generateRandomIntegerWithIn(0, 1630355378);
+
+  //tcd.time = 1630441529;
+  //tcd.time = 1417895934;//generateRandomIntegerWithIn(0, 1630355378);
+
 
   generateTrackpoint(tcd);
 

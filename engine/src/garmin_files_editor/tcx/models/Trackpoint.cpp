@@ -1,8 +1,8 @@
 //
 // Created by Riccardo Petraglia on 31.07.21.
 //
-
 #include "Trackpoint.h"
+
 gar_edit::Altitude gar_edit::Trackpoint::altitude() const {
   return std::stold(node_.child("AltitudeMeters").child_value());
 }
@@ -25,14 +25,12 @@ std::time_t gar_edit::Trackpoint::time() const {
 }
 
 tm gar_edit::Trackpoint::parseTimeString(const std::string &time_string) {
-  struct tm tm{};
+  std::tm tm = {};
+  tm.tm_isdst = -1;
 
   std::stringstream ss;
   ss << time_string;
-
   ss >> std::get_time(&tm, timeFormat);
-
-  tm.tm_hour += 1; // Adjust for the timezone.
 
   if (ss.fail()) {
     throw std::runtime_error("Could not convert time: " + ss.str());

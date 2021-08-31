@@ -15,17 +15,13 @@ namespace gar_edit {
 
 class Trackpoint {
  private:
-  pugi::xml_node node_;
-  Position* position_;
+  const pugi::xml_node node_;
+  const Position* const position_;
 
  public:
-  pugi::xml_node position_node_;
-  explicit Trackpoint(pugi::xml_node node) : node_{node}, position_{nullptr} {
-    position_node_ = node_.child("Position");
-    position_ = new Position(node_.child("Position"));
-  }
-  ~Trackpoint() = default; //{ delete position_; }
-  Trackpoint(const Trackpoint &){std::cout << "USING FORBIDDEN FUNCTION" << std::endl;};
+  explicit Trackpoint(pugi::xml_node node) : node_{node},
+                                             position_{new Position(node_.child("Position"))} {}
+  ~Trackpoint() { delete position_; }
   [[nodiscard]] const Position* position() const { return position_; }
   [[nodiscard]] Altitude altitude() const;
   [[nodiscard]] Distance distance() const;

@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <sstream>
 #include <chrono>
+
 #include "garmin_files_editor/tcx/models/types.h"
 
 
@@ -43,6 +44,14 @@ struct trackpointData {
   std::string trackpoint;
 };
 
+struct tracData {
+  tracData() : trackpoint_data{0}{}
+  std::vector<trackpointData> trackpoint_data;
+  long trackpoint_data_size;
+  long average_time;
+  std::string track;
+};
+
 void generatePosition(positionData& pd);
 
 void generateTrackpoint(trackpointData& tcd);
@@ -51,6 +60,7 @@ void generateTrackpoint(trackpointData& tcd);
 
 [[nodiscard]] trackpointData generateRandomTrackpoint();
 
+[[nodiscard]] tracData generateRandomTrack(int lowest_number_of_trackpoints, int highest_number_of_trackpoints);
 }
 
 #endif //GARMIN_FILES_EDITOR_ENGINE_TESTS_HELPERS_TEST_HELPER_FUNCTIONS_H_

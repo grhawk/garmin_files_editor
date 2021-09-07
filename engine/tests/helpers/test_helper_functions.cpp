@@ -67,7 +67,7 @@ void gar_edit::test_helpers::generateTrackpoint(gar_edit::test_helpers::trackpoi
                     "            </AltitudeMeters>\n"
                     "            <DistanceMeters>"
                     << tcd.distance <<
-                    "            </DistanceMeters>"
+                    "            </DistanceMeters>\n"
                     "          </Trackpoint>";
   tcd.trackpoint = position_node_xml.str();
 }
@@ -98,4 +98,25 @@ gar_edit::test_helpers::trackpointData gar_edit::test_helpers::generateRandomTra
   generateTrackpoint(tcd);
 
   return tcd;
+}
+gar_edit::test_helpers::tracData gar_edit::test_helpers::generateRandomTrack(int lowest_number_of_trackpoints,
+																			 int highest_number_of_trackpoints) {
+  tracData td;
+  td.trackpoint_data_size = generateRandomIntegerWithIn(lowest_number_of_trackpoints,
+														highest_number_of_trackpoints);
+  std::stringstream ss;
+  ss << "        <Track>\n";
+
+  for (std::size_t i = 0; i != td.trackpoint_data_size; i++) {
+	auto tp = generateRandomTrackpoint();
+	td.average_time += tp.time;
+	td.trackpoint_data.push_back(tp);
+	ss << tp.trackpoint << std::endl;
+  }
+
+  ss << "        </Track>\n";
+  td.track = ss.str();
+  td.average_time = td.average_time / td.trackpoint_data_size;
+
+  return td;
 }
